@@ -13,6 +13,24 @@ main {
   flex-direction: column;
 }
 
+a {
+  color: #000;
+}
+
+.header {
+  border-bottom: 1px solid rgba(180, 180, 180, 0.349);
+}
+
+.first-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 800px;
+  justify-content: space-between;
+  background-color: white;
+  align-items: center;
+}
+
 .body-flex {
   display: flex;
   flex-direction: row;
@@ -20,19 +38,36 @@ main {
   width: 800px;
   justify-content: space-between;
   background-color: white;
-  padding: 10px;
-  border-bottom: 1px solid rgba(180, 180, 180, 0.349);
 }
 
 .btn-flex {
   display: flex;
   flex-direction: row;
-  width: 820px;
+  width: 800px;
   justify-content: space-between;
 }
 
-.width {
+.full-width {
   width: 100%;
+}
+
+.wrapper {
+  padding: 10px;
+}
+
+.input {
+  border: none;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.input:focus-visible {
+  outline: none;
 }
 
 .title > h1 {
@@ -44,17 +79,11 @@ main {
   justify-content: space-around;
 }
 
-.main-body {
-  width: 100%;
-}
-
-.input {
-  padding: 10px 0px;
-  border: none;
-}
-
-.input:focus-visible {
-  outline: none;
+.todo-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(180, 180, 180, 0.349);
 }
 
 .completed {
@@ -66,4 +95,34 @@ main {
 
 .completed:active {
   background-color: rgb(251, 251, 251);
+}
+
+.todo-data {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  border-bottom: 1px solid rgba(180, 180, 180, 0.349);
+  height: 30px;
+}
+
+.list-container {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.check-input {
+  margin-left: 10px;
+}
+
+.todo-text {
+  margin-left: 20px;
+}
+
+.del-menu {
+  margin-left: auto;
+  margin-right: 10px;
 }

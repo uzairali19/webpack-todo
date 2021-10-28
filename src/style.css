@@ -1,7 +1,69 @@
 body {
   background-color: bisque;
+  font-family: 'Google Sans', system-ui, serif;
 }
 
-.hello {
-  color: red;
+main {
+  display: flex;
+  line-height: 1.5;
+  padding: 2rem 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  flex-direction: column;
+}
+
+.body-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 800px;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+  border-bottom: 1px solid rgba(180, 180, 180, 0.349);
+}
+
+.btn-flex {
+  display: flex;
+  flex-direction: row;
+  width: 820px;
+  justify-content: space-between;
+}
+
+.width {
+  width: 100%;
+}
+
+.title > h1 {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.todo-body {
+  justify-content: space-around;
+}
+
+.main-body {
+  width: 100%;
+}
+
+.input {
+  padding: 10px 0px;
+  border: none;
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.completed {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  line-height: 3;
+  color: rgb(0, 0, 0);
+}
+
+.completed:active {
+  background-color: rgb(251, 251, 251);
 }

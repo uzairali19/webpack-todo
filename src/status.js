@@ -1,65 +1,97 @@
-class Check {
-  todoList(todoList) {
-    const list = document.querySelector('#todo-data');
-    if (this.getItems() === null) {
-      todoList.forEach((task, i) => {
-        if (task.completed === true) {
-          const li = document.createElement('li');
-          const text = `<div class="list-container"> <input class='check-input' type='checkbox' id='${i}' aria-label='...' checked>
-          <p class="todo-text">${task.itemText}</p><a class="del-menu" href="#"><i class="fas fa-ellipsis-v"></i></a></div>`;
-          li.classList.add('list-item');
-          li.innerHTML = text;
-          list.appendChild(li);
-        } else {
-          const li = document.createElement('li');
-          const text = `<div class="list-container"> <input class='check-input' type='checkbox' id='${i}' aria-label='...'>
-            <p class="todo-text">${task.itemText}</p><a class="del-menu" href="#"><i class="fas fa-ellipsis-v"></i></a></div>`;
-          li.classList.add('list-item');
-          li.innerHTML = text;
-          list.appendChild(li);
-        }
+class Status {
+  constructor(form, todoTask, mainList, list, data, completed) {
+    this.form = form;
+    this.todoTask = todoTask;
+    this.mainList = mainList;
+    this.list = list;
+    this.data = data;
+    this.completed = completed;
+  }
+
+  addData() {
+    this.form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.data.push({
+        todoText: this.todoTask.value,
+        completed: false,
+        todoIndex: this.data.length,
       });
-    } else {
-      todoList.forEach((task, i) => {
-        const localTodo = JSON.parse(localStorage.getItem('tasks'));
-        if (localTodo[i].completed === true) {
-          const li = document.createElement('li');
-          const text = `<div class="list-container"> <input class='check-input' type='checkbox' id='${i}' aria-label='...' checked>
-          <p class="todo-text">${task.itemText}</p><a class="del-menu" href="#"><i class="fas fa-ellipsis-v"></i></a></div>`;
-          li.classList.add('list-item');
-          li.innerHTML = text;
-          list.appendChild(li);
-        } else {
-          const li = document.createElement('li');
-          const text = `<div class="list-container"> <input class='check-input' type='checkbox' id='${i}' aria-label='...'>
-            <p class="todo-text">${task.itemText}</p><a class="del-menu" href="#"><i class="fas fa-ellipsis-v"></i></a></div>`;
-          li.classList.add('list-item');
-          li.innerHTML = text;
-          list.appendChild(li);
+
+      const todos = this.data.sort((a, b) => {
+        const indexA = a.todoIndex;
+        const indexB = b.todoIndex;
+
+        if (indexA < indexB) {
+          return -1;
         }
+        if (indexA > indexB) {
+          return 1;
+        }
+        return 0;
       });
-    }
+      const li = document.createElement('li');
+      todos.forEach((task) => {
+        const text = `<div class="list-container main-list"> <input class='check-input' type='checkbox'  aria-label='...'>
+            <p class="todo-text">${task.todoText}</p><a class="del-menu" id="del" href="#"><i class="fas fa-ellipsis-v"></i></a></div>`;
+        li.classList.add('list-item');
+        li.innerHTML = text;
+        this.mainList.appendChild(li);
+      });
+      localStorage.setItem('task', JSON.stringify(todos));
+      this.todoTask.value = '';
+      this.completeTodo();
+      this.removeData();
+    });
   }
 
-  getItems() {
-    return JSON.parse(localStorage.getItem('tasks'));
+  loadData() {
+    window.addEventListener('load', (e) => {
+      e.preventDefault();
+      const tasks = JSON.parse(localStorage.getItem('task'));
+      tasks.forEach((task) => {
+        const li = document.createElement('li');
+        const text = `<div class="list-container main-list"> <input class='check-input' type='checkbox'  aria-label='...'>
+              <p class="todo-text">${task.todoText}</p><a class="del-menu" id="del" href="#"><i class="fas fa-ellipsis-v"></i></a></div>`;
+        li.classList.add('list-item');
+        li.innerHTML = text;
+        this.mainList.appendChild(li);
+      });
+      this.completeTodo();
+      this.removeData();
+    });
   }
 
-  addItems(todo) {
-    localStorage.setItem('tasks', JSON.stringify(todo));
+  removeData() {
+    const del = document.querySelectorAll('#del');
+    del.forEach((v, i) => {
+      v.addEventListener('click', (e) => {
+        e.preventDefault();
+        const div = v.parentElement;
+        const li = div.parentElement;
+        li.remove();
+        const newTask = JSON.parse(localStorage.getItem('task'));
+        newTask.splice(i, 1);
+        localStorage.setItem('task', JSON.stringify(newTask));
+      });
+    });
   }
 
-  updateCheckbox(todoList) {
-    const checkBox = document.querySelectorAll('.check-input');
-    checkBox.forEach((v, i) => {
+  completeTodo() {
+    const checks = document.querySelectorAll('.check-input');
+    checks.forEach((v, i) => {
       v.addEventListener('change', (e) => {
         e.preventDefault();
-        todoList[i].completed = v.checked;
-        this.addItems(todoList);
-        this.getItems();
+        if (v.checked === true) {
+          v.parentNode.style.textDecoration = 'line-through';
+        } else {
+          v.parentNode.style.textDecoration = 'none';
+        }
+        const newTask = JSON.parse(localStorage.getItem('task'));
+        newTask[i].completed = v.checked;
+        localStorage.setItem('task', JSON.stringify(newTask));
       });
     });
   }
 }
 
-export default Check;
+export default Status;

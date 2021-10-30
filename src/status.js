@@ -1,11 +1,10 @@
 class Status {
-  constructor(form, todoTask, mainList, list, data, completed) {
+  constructor(form, todoTask, mainList, list, data) {
     this.form = form;
     this.todoTask = todoTask;
     this.mainList = mainList;
     this.list = list;
     this.data = data;
-    this.completed = completed;
   }
 
   addData() {

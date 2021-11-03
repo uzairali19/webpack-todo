@@ -27,7 +27,6 @@ class Interact {
           divWrapper.classList.remove('checked');
           todos[index].completed = false;
         }
-        localStorage.setItem('todos', JSON.stringify(todos));
       });
     });
   }

@@ -126,3 +126,7 @@ a {
   margin-left: auto;
   margin-right: 10px;
 }
+
+.checked > p {
+  text-decoration: line-through;
+}

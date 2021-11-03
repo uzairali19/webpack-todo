@@ -1,15 +1,14 @@
 import './style.css';
+import Interact from './interactive';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
 
-const list = document.querySelector('#todo-data');
-
 const data = [
   {
     itemText: 'Hello World!',
-    completed: true,
+    completed: false,
     index: 1,
   },
   {
@@ -20,7 +19,7 @@ const data = [
   {
     itemText: 'unlearn Javascript',
     completed: false,
-    index: 2,
+    index: 3,
   },
 ];
 
@@ -37,15 +36,5 @@ const todos = data.sort((a, b) => {
   return 0;
 });
 
-function displaylist() {
-  todos.forEach((task) => {
-    const li = document.createElement('li');
-    const text = `<div class="list-container"> <input class='check-input' type='checkbox' value='${task.completed}' aria-label='...'>
-    <p class="todo-text">${task.itemText}</p><a class="del-menu" href="#"><i class="fas fa-ellipsis-v"></i></a></div>`;
-    li.classList.add('list-item');
-    li.innerHTML = text;
-    list.appendChild(li);
-  });
-}
-
-displaylist();
+const lists = new Interact(todos);
+lists.displaylist();

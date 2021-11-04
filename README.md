@@ -12,17 +12,24 @@
 
 ![Screenshot](./screenshot.png)
 
-## Live Demo
-
-[Live Demo Link](https://uzairali19.github.io/webpack-todo)
-
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
 
 ### Setup
 
-Run `git clone https://github.com/uzairali19/webpack-todo`
+Run 
+
+```bash
+# To clone the git repositories
+git clone https://github.com/uzairali19/webpack-todo
+
+# To install dependencies 
+npm install 
+
+# To run development branch
+npm run start
+````
 
 ### Run tests
 

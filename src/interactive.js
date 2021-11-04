@@ -4,7 +4,7 @@ class Interact {
   }
 
   displaylist() {
-    const todoList = this.getItem();
+    const todoList = JSON.parse(localStorage.getItem('todos'));
     const list = document.querySelector('#todo-data');
     if (todoList === null) {
       this.todos.forEach((task) => {
@@ -66,10 +66,6 @@ class Interact {
         }
       });
     });
-  }
-
-  getItem() {
-    return JSON.parse(localStorage.getItem('todos'));
   }
 
   addItem() {

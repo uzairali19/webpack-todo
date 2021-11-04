@@ -38,3 +38,6 @@ const todos = data.sort((a, b) => {
 
 const lists = new Interact(todos);
 lists.displaylist();
+window.addEventListener('load', () => {
+  lists.getItem();
+});

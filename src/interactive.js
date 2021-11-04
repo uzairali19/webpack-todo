@@ -51,6 +51,20 @@ class Interact {
           localStorage.setItem('todos', JSON.stringify(todos));
         }
       });
+      window.addEventListener('load', (e) => {
+        e.preventDefault();
+        const divWrapper = check.parentElement;
+        if (check.checked) {
+          divWrapper.classList.add('checked');
+          check.checked = true;
+          todos[index].completed = true;
+          localStorage.setItem('todos', JSON.stringify(todos));
+        } else {
+          divWrapper.classList.remove('checked');
+          todos[index].completed = false;
+          localStorage.setItem('todos', JSON.stringify(todos));
+        }
+      });
     });
   }
 

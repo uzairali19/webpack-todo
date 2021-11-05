@@ -12,6 +12,10 @@
 
 ![Screenshot](./screenshot.png)
 
+## Live Demo
+
+[Live Demo Link](https://uzairali19.github.io/webpack-todo)
+
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.

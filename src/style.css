@@ -130,3 +130,25 @@ a {
 .checked > p {
   text-decoration: line-through;
 }
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.edit-box {
+  margin-top: -20px;
+  left: 40px;
+}
+
+.del-box {
+  margin-top: -20px;
+  left: 80px;
+}
+
+.hide > div {
+  display: none;
+}

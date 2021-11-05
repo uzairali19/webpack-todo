@@ -140,15 +140,13 @@ a {
 }
 
 .edit-box {
-  margin-top: -20px;
-  left: 40px;
+  margin-right: 20px;
 }
 
-.del-box {
-  margin-top: -20px;
-  left: 80px;
+.edit-box:hover {
+  color: rgb(104, 231, 110);
 }
 
-.hide > div {
-  display: none;
+.del-box:hover {
+  color: rgb(156, 25, 25);
 }

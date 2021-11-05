@@ -11,8 +11,8 @@ const inputText = document.querySelector('#text');
 const lists = new Interact(form, data, inputText);
 lists.data();
 lists.loadList();
-lists.options();
-
 window.addEventListener('load', () => {
   JSON.parse(localStorage.getItem('todos'));
 });
+lists.delItem();
+lists.clearAll();

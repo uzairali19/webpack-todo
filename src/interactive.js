@@ -41,8 +41,8 @@ class Interact {
 
       todos.forEach((task) => {
         const text = `<div class="list-container"> <input class='check-input' type='checkbox' value='${task.completed}'>
-                <p class="todo-text">${task.todoText}</p><div class="del-menu"><a class="main hide" href="#"><i class="fas fa-ellipsis-v"></i>
-                <div class="relative"><i class="fas fa-edit absolute edit-box"></i> <i class="fas fa-trash absolute del-box"></i></div></a></div></div>`;
+                <p class="todo-text">${task.todoText}</p><div class="del-menu"><a class="edit" href="#">
+                <i class="fas fa-edit edit-box"></i></a><a href="#" class="del"><i class="fas fa-trash del-box"></i></a></div></div>`;
         li.classList.add('list-item');
         li.innerHTML = text;
       });
@@ -67,6 +67,7 @@ class Interact {
         });
       });
       this.options();
+      this.delItem();
     });
   }
 
@@ -78,15 +79,15 @@ class Interact {
         const li = document.createElement('li');
         if (task.completed === true) {
           const text = `<div class="list-container"> <input class='check-input' type='checkbox' value='${task.completed}' checked>
-                <p class="todo-text">${task.todoText}</p><div class="del-menu"><a class="main hide" href="#"><i class="fas fa-ellipsis-v"></i>
-                <div class="relative"><i class="fas fa-edit absolute edit-box"></i><i class="fas fa-trash absolute del-box"></i></div></a></div></div>`;
+                <p class="todo-text">${task.todoText}</p><div class="del-menu"><a class="edit" href="#">
+                <i class="fas fa-edit edit-box"></i></a><a href="#" class="del"><i class="fas fa-trash del-box"></i></a></div></div>`;
           li.classList.add('list-item');
           li.innerHTML = text;
           list.appendChild(li);
         } else {
           const text = `<div class="list-container"> <input class='check-input' type='checkbox' value='${task.completed}'>
-              <p class="todo-text">${task.todoText}</p><div class="del-menu"><a class="main hide" href="#"><i class="fas fa-ellipsis-v"></i>
-              <div class="relative"><i class="fas fa-edit absolute edit-box"></i> <i class="fas fa-trash absolute del-box"></i></div></a></div></div>`;
+              <p class="todo-text">${task.todoText}</p><div class="del-menu"><a class="edit" href="#">
+              <i class="fas fa-edit edit-box"></i></a><a href="#" class="del"><i class="fas fa-trash del-box"></i></a></div></div>`;
           li.classList.add('list-item');
           li.innerHTML = text;
           list.appendChild(li);
@@ -127,18 +128,53 @@ class Interact {
     }
   }
 
-  options() {
-    const options = document.querySelectorAll('.main');
-    options.forEach((v) => {
-      v.addEventListener('click', (e) => {
-        e.preventDefault();
-        // var menu = this.querySelector('.relative');
-        // menu.classList.toggle('hidden');
-      });
+  editItem() {
+    //     var listItem = parentNode;
+    // var editInput=listItem.querySelector('input[type=text]');
+    // var label=listItem.querySelector("label");
+    // var containsClass=listItem.classList.contains("editMode");
+    // 		//If class of the parent is .editmode
+    // 		if(containsClass){
+    // 		//switch to .editmode
+    // 		//label becomes the inputs value.
+    // 			label.innerText=editInput.value;
+    // 		}else{
+    // 			editInput.value=label.innerText;
+    // 		}
+    // 		//toggle .editmode on the parent.
+    // 		listItem.classList.toggle("editMode");
+    // }
+  }
+
+  delItem() {
+    const del = document.querySelectorAll('.del');
+    const todoList = JSON.parse(localStorage.getItem('todos'));
+    del.forEach((v, i) => {
+      setTimeout(() => {
+        const aDiv = v.parentElement;
+        const listItem = aDiv.parentElement.parentElement;
+        v.addEventListener('click', (e) => {
+          e.preventDefault();
+          listItem.remove();
+          todoList.splice(i, 1);
+          this.addItem(todoList);
+        });
+      }, 500);
     });
   }
 
-  delItem() {}
+  clearAll() {
+    const clearBtn = document.querySelector('#completed');
+    clearBtn.addEventListener('click', (e) => {
+      const mainList = document.querySelector('#todo-data');
+      mainList.remove();
+      localStorage.setItem('todos', null);
+      window.addEventListener('load', (e) => {
+        e.preventDefault();
+        localStorage.getItem('todos');
+      });
+    });
+  }
 
   addItem(todos) {
     return localStorage.setItem('todos', JSON.stringify(todos));

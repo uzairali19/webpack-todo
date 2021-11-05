@@ -42,7 +42,7 @@ class Interact {
       todos.forEach((task) => {
         const text = `<div class="list-container"> <input class='check-input' type='checkbox' value='${task.completed}'>
                 <p class="todo-text" contenteditable="true">${task.todoText}</p><div class="del-menu"><a class="edit" href="#">
-                <i class="fas fa-edit edit-box"></i></a><a href="#" class="del"><i class="fas fa-trash del-box"></i></a></div></div>`;
+                <i class="fas fa-edit edit-box"></i></a><a href="#" class="del delete"><i class="fas fa-trash del-box"></i></a></div></div>`;
         li.classList.add('list-item');
         li.innerHTML = text;
       });
@@ -50,6 +50,7 @@ class Interact {
       list.appendChild(li);
       this.form.reset();
       this.addItem(todos);
+      this.delItem();
       this.editItem();
       const check = document.querySelectorAll('.check-input');
       check.forEach((check, index) => {
@@ -60,16 +61,14 @@ class Interact {
             divWrapper.classList.add('checked');
             check.checked = true;
             todos[index].completed = true;
-            localStorage.setItem('todos', JSON.stringify(todos));
+            this.addItem(todos);
           } else {
             divWrapper.classList.remove('checked');
             todos[index].completed = false;
-            localStorage.setItem('todos', JSON.stringify(todos));
+            this.addItem(todos);
           }
         });
       });
-      this.options();
-      this.delItem();
     });
   }
 
@@ -82,14 +81,14 @@ class Interact {
         if (task.completed === true) {
           const text = `<div class="list-container"> <input class='check-input' type='checkbox' value='${task.completed}' checked>
                 <p class="todo-text" contenteditable="true">${task.todoText}</p><div class="del-menu"><a class="edit" href="#">
-                <i class="fas fa-edit edit-box"></i></a><a href="#" class="del"><i class="fas fa-trash del-box"></i></a></div></div>`;
+                <i class="fas fa-edit edit-box"></i></a><a href="#" class="del delete"><i class="fas fa-trash del-box"></i></a></div></div>`;
           li.classList.add('list-item');
           li.innerHTML = text;
           list.appendChild(li);
         } else {
           const text = `<div class="list-container"> <input class='check-input' type='checkbox' value='${task.completed}'>
               <p class="todo-text" contenteditable="true">${task.todoText}</p><div class="del-menu"><a class="edit" href="#">
-              <i class="fas fa-edit edit-box"></i></a><a href="#" class="del"><i class="fas fa-trash del-box"></i></a></div></div>`;
+              <i class="fas fa-edit edit-box"></i></a><a href="#" class="del delete"><i class="fas fa-trash del-box"></i></a></div></div>`;
           li.classList.add('list-item');
           li.innerHTML = text;
           list.appendChild(li);
@@ -105,11 +104,11 @@ class Interact {
             divWrapper.classList.add('checked');
             check.checked = true;
             todos[index].completed = true;
-            localStorage.setItem('todos', JSON.stringify(todos));
+            this.addItem(todos);
           } else {
             divWrapper.classList.remove('checked');
             todos[index].completed = false;
-            localStorage.setItem('todos', JSON.stringify(todos));
+            this.addItem(todos);
           }
         });
         window.addEventListener('load', (e) => {
@@ -119,11 +118,11 @@ class Interact {
             divWrapper.classList.add('checked');
             check.checked = true;
             todos[index].completed = true;
-            localStorage.setItem('todos', JSON.stringify(todos));
+            this.addItem(todos);
           } else {
             divWrapper.classList.remove('checked');
             todos[index].completed = false;
-            localStorage.setItem('todos', JSON.stringify(todos));
+            this.addItem(todos);
           }
         });
       });
@@ -141,7 +140,7 @@ class Interact {
         const p = listItem.children[1];
 
         todoList[i].todoText = p.innerText;
-        localStorage.setItem('todos', JSON.stringify(todoList));
+        this.addItem(todoList);
       });
     });
   }
@@ -150,33 +149,41 @@ class Interact {
     const del = document.querySelectorAll('.del');
     const todoList = JSON.parse(localStorage.getItem('todos'));
     del.forEach((v, i) => {
-      setTimeout(() => {
+      v.addEventListener('click', (e) => {
+        e.preventDefault();
+        const text = document.querySelector('.todo-text').textContent;
         const aDiv = v.parentElement;
         const listItem = aDiv.parentElement.parentElement;
-        v.addEventListener('click', (e) => {
-          e.preventDefault();
-          listItem.remove();
-          todoList.splice(i, 1);
-          this.addItem(todoList);
-        });
-      }, 500);
+        listItem.remove();
+        todoList.splice(i, 1);
+        this.addItem(todoList);
+      });
     });
   }
 
   clearAll() {
     const clearBtn = document.querySelector('#completed');
     clearBtn.addEventListener('click', () => {
-      const mainList = document.querySelector('#todo-data');
-      mainList.remove();
-      localStorage.setItem('todos', null);
-      window.addEventListener('load', (e) => {
-        e.preventDefault();
-        localStorage.getItem('todos');
+      const checkBox = document.querySelectorAll('.check-input');
+      const todoList = JSON.parse(localStorage.getItem('todos'));
+      checkBox.forEach((v, i) => {
+        const aDiv = v.parentElement.parentElement;
+        if (v.checked === true && todoList[i].completed === true) {
+          aDiv.remove();
+        }
       });
+
+      let newTodo = todoList.filter((v) => {
+        return v.completed === false;
+      });
+      this.addItem(newTodo);
     });
   }
 
   addItem(todos) {
+    todos.forEach((v, i) => {
+      v.todoIndex = i;
+    });
     return localStorage.setItem('todos', JSON.stringify(todos));
   }
 }

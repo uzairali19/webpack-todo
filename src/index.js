@@ -10,9 +10,12 @@ const data = [];
 const inputText = document.querySelector('#text');
 const lists = new Interact(form, data, inputText);
 lists.data();
+
 lists.loadList();
+lists.editItem();
 window.addEventListener('load', () => {
   JSON.parse(localStorage.getItem('todos'));
 });
 lists.delItem();
+
 lists.clearAll();

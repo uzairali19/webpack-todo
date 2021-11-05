@@ -151,7 +151,6 @@ class Interact {
     del.forEach((v, i) => {
       v.addEventListener('click', (e) => {
         e.preventDefault();
-        const text = document.querySelector('.todo-text').textContent;
         const aDiv = v.parentElement;
         const listItem = aDiv.parentElement.parentElement;
         listItem.remove();
@@ -173,9 +172,7 @@ class Interact {
         }
       });
 
-      let newTodo = todoList.filter((v) => {
-        return v.completed === false;
-      });
+      const newTodo = todoList.filter((v) => v.completed === false);
       this.addItem(newTodo);
     });
   }

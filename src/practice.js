@@ -13,4 +13,19 @@ const stringReverse = (string) => {
   return reverseString;
 };
 
-export { stringLength, stringReverse };
+class Calculator {
+  add(one, two) {
+    return one + two;
+  }
+  substract(one, two) {
+    return one - two;
+  }
+  divide(one, two) {
+    return one / two;
+  }
+  multiply(one, two) {
+    return one * two;
+  }
+}
+
+export { stringLength, stringReverse, Calculator };

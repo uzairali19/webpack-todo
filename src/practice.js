@@ -31,4 +31,6 @@ class Calculator {
   }
 }
 
-export { stringLength, stringReverse, Calculator };
+const capString = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+export { stringLength, stringReverse, Calculator, capString };

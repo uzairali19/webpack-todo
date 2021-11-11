@@ -1,4 +1,9 @@
-import { stringLength, stringReverse, Calculator } from '../src/practice';
+import {
+  stringLength,
+  stringReverse,
+  Calculator,
+  capString,
+} from '../src/practice';
 
 test('Returns length of a given string', () => {
   const str = 'Hello';
@@ -44,5 +49,19 @@ describe('Calculator', () => {
     expect(cal.multiply(3, 2)).toBe(6);
     expect(cal.multiply(-4, 2)).toBe(-8);
     expect(cal.multiply(6, 0)).toBe(0);
+  });
+});
+
+describe('Capitalize String', () => {
+  test('First word capital', () => {
+    const str = 'hello';
+    expect(capString(str)).toBe('Hello');
+  });
+
+  test('Throw error if not capital', () => {
+    const str = '';
+    expect(() => {
+      stringLength(str);
+    }).toThrowError();
   });
 });

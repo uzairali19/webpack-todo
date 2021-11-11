@@ -1,4 +1,4 @@
-const stringLength = require('../src/practice');
+import { stringLength, stringReverse } from '../src/practice';
 
 test('Returns length of a given string', () => {
   const str = 'Hello';
@@ -16,4 +16,9 @@ test('Returns an error', () => {
   expect(() => {
     stringLength(str);
   }).toThrow('Input condition not met');
+});
+
+test('reverse string', () => {
+  const str = 'Hello World';
+  expect(stringReverse(str)).toBe('dlroW olleH');
 });

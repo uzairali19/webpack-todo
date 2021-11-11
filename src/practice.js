@@ -5,4 +5,12 @@ const stringLength = (string) => {
   throw new Error('Input condition not met');
 };
 
-module.exports = stringLength;
+const stringReverse = (string) => {
+  let reverseString = '';
+  for (let i = string.length - 1; i >= 0; i--) {
+    reverseString += string[i];
+  }
+  return reverseString;
+};
+
+export { stringLength, stringReverse };

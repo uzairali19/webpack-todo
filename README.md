@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Awesome books
+# TODO List with Webpack
 
 > Basic website that allows users to add/remove tasks from a list. They can further go and mark the ones that are completed.
 

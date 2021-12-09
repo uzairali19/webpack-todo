@@ -14,10 +14,13 @@
       "no-shadow": "off",
       "no-param-reassign": "off",
       "eol-last": "off",
-      "class-methods-use-this":"off"
+      "class-methods-use-this":"off",
+      "no-plusplus": "off",
+      "object-curly-newline": "off"
     },
     "ignorePatterns": [
       "dist/",
-      "build/"
+      "build/",
+      "jest.config.js"
     ]
   }
